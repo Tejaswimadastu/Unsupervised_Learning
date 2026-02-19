@@ -14,16 +14,19 @@ st.title("🔍 Anomaly Detection System")
 st.markdown("---")
 st.markdown("This application uses **Isolation Forest** to detect anomalies in air quality data.")
  
-# Load the trained model
-model_path = ".\isolation_forest_air_quality.pkl"
- 
+import os
+import joblib
+
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "isolation_forest_air_quality.pkl")
+
 try:
-    model = joblib.load(model_path)
+    model = joblib.load(MODEL_PATH)
     st.success("✅ Model loaded successfully!")
 except FileNotFoundError:
-    st.error(f"❌ Model file not found: {model_path}")
-    st.info("Please ensure the model file 'isolation_forest_model.pkl' is in the current directory.")
+    st.error("❌ Model file not found: isolation_forest_air_quality.pkl")
+    st.info("Ensure the model file is in the same folder as app.py")
     st.stop()
+
  
 # Create tabs for different functionalities
 tab1, tab2, tab3 = st.tabs(["Single Prediction", "Batch Prediction", "Model Information"])
